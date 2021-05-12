@@ -8,6 +8,7 @@ Libqmycroft allows QML based applications to register themselves as dynamic skil
 
 
 
+
 --------------------------------
 
 - [Libqmycroft](#libqmycroft)
@@ -16,7 +17,8 @@ Libqmycroft allows QML based applications to register themselves as dynamic skil
   * [Libqmycroft API & Usage](#libqmycroft-api---usage)
       - [SkillManager Object](#skillmanager-object)
       - [SkillEntry Object](#skillentry-object)
-      - [Usage Example of Libqmycroft in QML application](#usage-example-of-libqmycroft-in-qml-application)
+      - [Controller Class](#controller-class)
+  * [Usage Example of Libqmycroft in QML application](#usage-example-of-libqmycroft-in-qml-application)
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -87,19 +89,30 @@ Important functions of the SkillManager Object:
 
 - **createSkill() Method** *(required)*: Registers dynamic skill namespace and skill entries with Libqmycroft-Mock-Skills-Interface
 
+  
+
 #### SkillEntry Object
 
 The SkillEntry Object allows applications to create skill entries to be registered during the time of skill creation. SkillEntry Object manages entries for:
 
 - **intent** *(required)*: An intent is the task the user intends to accomplish when they say  something. The role of the intent parser is to extract from the user's  speech key data elements that specify their intent. [Read More](https://mycroft-ai.gitbook.io/docs/skill-development/user-interaction/intents) 
   - *Currently should not contain any special characters and should always be defined in lowercase string*
+  
 - **voc** *(required)*: ***Absolute Path to an intent file*** with keywords that can activate the intent. Padatious intents uses a series of example sentences to train a machine learning model to identify an intent. *Currently limited to single Padatious intents.*
+
 - **action** *(required)*: A string based action response based on the intent triggered, notifies the Skill Manager `"onIntentResponse"` via `"action"` variable letting the application then decide what action to take based on the action received.
+
 - **dialog** *(optional)*: A string of text to be spoken by Mycroft when a positive intent response is received for the registered SkillEntry intent.
 
+  
+
+#### Controller Class
+
+The controller class is a minified abstraction of the original Mycroft Controller class from the [Mycroft GUI](https://github.com/MycroftAI/mycroft-gui) project, It is a singleton instance that manages web-socket connections and message exchange to the Mycroft message-bus. It additionally also exports signals for various known mycroft type messages that applications can choose to react towards, for example when mycroft is listening or speaking . 
 
 
-#### Usage Example of Libqmycroft in QML application
+
+## Usage Example of Libqmycroft in QML application
 
 ***Example QML Implementation***
 
