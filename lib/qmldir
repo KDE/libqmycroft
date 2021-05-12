@@ -1,0 +1,5 @@
+module Libqmycroft
+plugin qmycroftplugin
+classname QmycroftPlugin
+
+typeinfo plugins.qmltypes
