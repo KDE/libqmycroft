@@ -15,10 +15,11 @@ Libqmycroft allows QML based applications to register themselves as dynamic skil
   * [Libqmycroft Requirements](#libqmycroft-requirements)
   * [Libqmycroft Installation](#libqmycroft-installation)
   * [Libqmycroft API & Usage](#libqmycroft-api---usage)
-      - [SkillManager Object](#skillmanager-object)
-      - [SkillEntry Object](#skillentry-object)
+      - [SkillManager Class & Object](#skillmanager-class-and-object)
+      - [SkillEntry Class & Object](#skillentry-class-and-object)
       - [Controller Class](#controller-class)
   * [Usage Example of Libqmycroft in QML application](#usage-example-of-libqmycroft-in-qml-application)
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -76,9 +77,9 @@ Libqmycroft allows QML based applications to register themselves as dynamic skil
 
 Libqmycroft provides developers with a declarative QML API for Skill Management and Skill Registration.
 
-#### SkillManager Class & Object
+#### SkillManager Class and Object
 
-The SkillManager Object allows applications to manage and register SkillEntry Objects, The SkillManager class also exposes functions and signals for creating the dynamic skill and listeners for intents and actions that have been invoked by voice interaction. The SkillManager class also exposes additional connection settings like setting the web socket address manually for connecting to a Mycroft-Core instance which can be used in cases of supporting remote instances or different than normal web socket address. 
+The SkillManager Object allows applications to manage and register a list of SkillEntry Objects, The SkillManager class also exposes functions and signals for creating the dynamic skill and listeners for intents and actions that have been invoked by voice interaction. The SkillManager class also exposes additional connection settings like setting the web socket address manually for connecting to a Mycroft-Core instance which can be used in cases of supporting remote instances or different than normal web socket address. 
 
 Important properties of the SkillManager Object:
 
@@ -90,7 +91,7 @@ Important functions of the SkillManager Object:
 - **createSkill() Method** *(required)*: Registers dynamic skill namespace and skill entries with Libqmycroft-Mock-Skills-Interface
 - **deleteSkill() Method** *(optional)*: Deletes the registered skill intents and namespace registration from Libqmycroft-Mock-Skills-Interface, it is automatically called in the SkillManager class deconstructor method when parent object is destroyed. *For example: when the application window in which the SkillManager object was registered is closed*  
 
-#### SkillEntry Class & Object
+#### SkillEntry Class and Object
 
 The SkillEntry Object allows applications to create skill entries to be registered during the time of skill creation. SkillEntry Object manages entries for:
 
