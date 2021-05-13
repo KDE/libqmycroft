@@ -48,6 +48,7 @@ public Q_SLOTS:
     void setSkillNamespace(QString skillNamespace);
     QJsonObject toJson(SkillEntry* &item) const;
     void createSkill();
+    void deleteSkill();
     bool isSocketReady() const;
     void onMainSocketMessageReceived(const QString &message);
     void setSocketAddress(QString socketAddress);

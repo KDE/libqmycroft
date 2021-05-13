@@ -11,18 +11,18 @@ Window {
     
     SkillManager {
         id: skillRegisteration
-        skillNamespace: "Test-Skill"
+        skillNamespace: "exampleapp"
         
         SkillEntry {
             intent: "testoneintent"
-            voc: currentPath + "/vocab/test_intent_one.intent"
+            voc: currentPath + "/vocab/exampleapp_test_intent_one.intent"
             action: "example-action-1"
             dialog: "Intent One Successful"
         }
         
         SkillEntry {
             intent: "testtwointent"
-            voc: currentPath + "/vocab/test_intent_two.intent"
+            voc: currentPath + "/vocab/exampleapp_test_intent_two.intent"
             action: "example-action-2"
             dialog: "Intent Two Successful"
         }

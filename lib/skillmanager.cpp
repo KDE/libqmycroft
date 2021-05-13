@@ -42,6 +42,8 @@ SkillManager::SkillManager(QObject *parent):
 
 SkillManager::~SkillManager()
 {
+    deleteSkill();
+    m_controller->disconnectSocket();
 }
 
 bool SkillManager::isSocketReady() const {
@@ -109,6 +111,22 @@ void SkillManager::createSkill()
     
     if(m_socketReady){
         m_controller->sendRequest(QStringLiteral("mycroft.create.dynamic.skill"), root.toVariantMap());
+    }
+}
+
+void SkillManager::deleteSkill()
+{
+    QJsonObject root;
+    root[QStringLiteral("namespace")] = m_settings.value(QStringLiteral("skillNamespace")).toString();
+
+    QJsonArray array;
+    for(int i = 0; i < m_items.count(); i++){
+        array.append(toJson(m_items[i]));
+    }
+    root[QStringLiteral("parameters")] = array;
+    
+    if(m_socketReady){
+        m_controller->sendRequest(QStringLiteral("mycroft.delete.dynamic.skill"), root.toVariantMap());
     }
 }
 

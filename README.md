@@ -76,7 +76,7 @@ Libqmycroft allows QML based applications to register themselves as dynamic skil
 
 Libqmycroft provides developers with a declarative QML API for Skill Management and Skill Registration.
 
-#### SkillManager Object
+#### SkillManager Class & Object
 
 The SkillManager Object allows applications to manage and register SkillEntry Objects, The SkillManager class also exposes functions and signals for creating the dynamic skill and listeners for intents and actions that have been invoked by voice interaction. The SkillManager class also exposes additional connection settings like setting the web socket address manually for connecting to a Mycroft-Core instance which can be used in cases of supporting remote instances or different than normal web socket address. 
 
@@ -88,16 +88,15 @@ Important properties of the SkillManager Object:
 Important functions of the SkillManager Object:
 
 - **createSkill() Method** *(required)*: Registers dynamic skill namespace and skill entries with Libqmycroft-Mock-Skills-Interface
+- **deleteSkill() Method** *(optional)*: Deletes the registered skill intents and namespace registration from Libqmycroft-Mock-Skills-Interface, it is automatically called in the SkillManager class deconstructor method when parent object is destroyed. *For example: when the application window in which the SkillManager object was registered is closed*  
 
-  
-
-#### SkillEntry Object
+#### SkillEntry Class & Object
 
 The SkillEntry Object allows applications to create skill entries to be registered during the time of skill creation. SkillEntry Object manages entries for:
 
 - **intent** *(required)*: An intent is the task the user intends to accomplish when they say  something. The role of the intent parser is to extract from the user's  speech key data elements that specify their intent. [Read More](https://mycroft-ai.gitbook.io/docs/skill-development/user-interaction/intents) *Currently should not contain any special characters and should always be defined in lowercase string*
 
-- **voc** *(required)*: ***Absolute Path to an intent file*** with keywords that can activate the intent. Padatious intents uses a series of example sentences to train a machine learning model to identify an intent. *Currently limited to single Padatious intents.*
+- **voc** *(required)*: ***Absolute Path to an intent file*** with keywords that can activate the intent. Padatious intents uses a series of example sentences to train a machine learning model to identify an intent. *Currently limited to single Padatious intents.* *Filenames should start with the application **namespace_**define_your_intent_here.intent this is to avoid active intent collision* 
 
 - **action** *(required)*: A string based action response based on the intent triggered, notifies the Skill Manager `"onIntentResponse"` via `"action"` variable letting the application then decide what action to take based on the action received.
 
@@ -125,18 +124,18 @@ Window {
     
     SkillManager {
         id: skillRegisteration
-        skillNamespace: "test-skill"
+        skillNamespace: "testskill"
         
         SkillEntry {
             intent: "testoneintent"
-            voc: currentPath + "/vocab/test_intent_one.intent"
+            voc: currentPath + "/vocab/testskill_test_intent_one.intent"
             action: "example-action-1"
             dialog: "Intent One Successful"
         }
         
         SkillEntry {
             intent: "testtwointent"
-            voc: currentPath + "/vocab/test_intent_two.intent"
+            voc: currentPath + "/vocab/testskill_test_intent_two.intent"
             action: "example-action-2"
             dialog: "Intent Two Successful"
         }
@@ -159,7 +158,7 @@ Window {
 }
 ```
 
-***Example Voc `"$application-installed-dir/vocab/test_intent_one.intent"` file implementation***
+***Example Voc `"$application-installed-dir/vocab/testskill_test_intent_one.intent"` file implementation***
 
 ```
 test application example one dynamic intent
