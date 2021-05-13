@@ -97,7 +97,7 @@ The SkillEntry Object allows applications to create skill entries to be register
 
 - **intent** *(required)*: An intent is the task the user intends to accomplish when they say  something. The role of the intent parser is to extract from the user's  speech key data elements that specify their intent. [Read More](https://mycroft-ai.gitbook.io/docs/skill-development/user-interaction/intents) *Currently should not contain any special characters and should always be defined in lowercase string*
 
-- **voc** *(required)*: ***Absolute Path to an intent file*** with keywords that can activate the intent. Padatious intents uses a series of example sentences to train a machine learning model to identify an intent. *Currently limited to single Padatious intents.* *Filenames should start with the application **namespace_**define_your_intent_here.intent this is to avoid active intent collision* 
+- **voc** *(required)*: ***Absolute Path to an intent file*** with keywords that can activate the intent. Padatious intents uses a series of example sentences to train a machine learning model to identify an intent. *Currently limited to single Padatious intents. Filenames should start with the application 'namespace_' + define_your_intent_here.intent this is to avoid active intent collision.*
 
 - **action** *(required)*: A string based action response based on the intent triggered, notifies the Skill Manager `"onIntentResponse"` via `"action"` variable letting the application then decide what action to take based on the action received.
 
