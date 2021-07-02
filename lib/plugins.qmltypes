@@ -7,7 +7,58 @@ import QtQuick.tooling 1.2
 // 'qmlplugindump -nonrelocatable Libqmycroft 1.0'
 
 Module {
-    dependencies: ["QtQuick 2.0"]
+    dependencies: [
+        "QtGraphicalEffects 1.12",
+        "QtQml 2.7",
+        "QtQml.Models 2.2",
+        "QtQml.WorkerScript 2.15",
+        "QtQuick 2.9",
+        "QtQuick.Controls 2.5",
+        "QtQuick.Controls.Fusion 2.15",
+        "QtQuick.Controls.Imagine 2.15",
+        "QtQuick.Controls.Material 2.15",
+        "QtQuick.Controls.Styles 1.4",
+        "QtQuick.Controls.Styles.Plasma 2.0",
+        "QtQuick.Controls.Universal 2.15",
+        "QtQuick.Extras 1.4",
+        "QtQuick.Layouts 1.4",
+        "QtQuick.Templates 2.5",
+        "QtQuick.Window 2.6",
+        "org.kde.kconfig 1.0",
+        "org.kde.kirigami 2.16",
+        "org.kde.kquickcontrolsaddons 2.0",
+        "org.kde.plasma.components 3.0",
+        "org.kde.plasma.core 2.0",
+        "org.kde.plasma.extras 2.0"
+    ]
+    Component {
+        name: "AudioTranscribe"
+        prototype: "QObject"
+        exports: ["Libqmycroft/AudioTranscribe 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "Status"
+            values: {
+                "Inactive": 0,
+                "Active": 1
+            }
+        }
+        Property { name: "status"; type: "Status"; isReadonly: true }
+        Signal { name: "transcribeStatusChanged" }
+        Signal {
+            name: "responseReceived"
+            Parameter { name: "response"; type: "string" }
+        }
+        Signal { name: "startRequested" }
+        Signal { name: "endRequested" }
+        Signal { name: "recordingStarted" }
+        Signal { name: "recordingEnded" }
+        Signal { name: "requestIdentifierGenerated" }
+        Method { name: "start" }
+        Method { name: "stop" }
+        Method { name: "generateRequestIdentifier" }
+        Method { name: "getRequestIdentifier"; type: "string" }
+    }
     Component {
         name: "Controller"
         prototype: "QObject"
@@ -152,6 +203,7 @@ Module {
             Parameter { name: "item"; type: "SkillEntry*&" }
         }
         Method { name: "createSkill" }
+        Method { name: "deleteSkill" }
         Method { name: "isSocketReady"; type: "bool" }
         Method {
             name: "onMainSocketMessageReceived"
@@ -160,6 +212,24 @@ Module {
         Method {
             name: "setSocketAddress"
             Parameter { name: "socketAddress"; type: "string" }
+        }
+    }
+    Component {
+        prototype: "QQuickButton"
+        name: "Libqmycroft/TranscribeButton 1.0"
+        exports: ["Libqmycroft/TranscribeButton 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "transcribeActive"; type: "bool" }
+        Property { name: "target"; type: "QVariant" }
+        Property { name: "requestID"; type: "QVariant" }
+        Method { name: "generateUniqueID"; type: "QVariant" }
+        Method {
+            name: "delay"
+            type: "QVariant"
+            Parameter { name: "delayTime"; type: "QVariant" }
+            Parameter { name: "cb"; type: "QVariant" }
         }
     }
 }

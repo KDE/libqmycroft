@@ -27,6 +27,7 @@ find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
     Qml
     Network
     WebSockets
+    Multimedia
 )
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0)

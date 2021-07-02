@@ -15,10 +15,12 @@ Libqmycroft allows QML based applications to register themselves as dynamic skil
   * [Libqmycroft Requirements](#libqmycroft-requirements)
   * [Libqmycroft Installation](#libqmycroft-installation)
   * [Libqmycroft API & Usage](#libqmycroft-api---usage)
-      - [SkillManager Class & Object](#skillmanager-class-and-object)
-      - [SkillEntry Class & Object](#skillentry-class-and-object)
-      - [Controller Class](#controller-class)
+    - [SkillManager Class & Object](#skillmanager-class-and-object)
+    - [SkillEntry Class & Object](#skillentry-class-and-object)
+    - [Controller Class](#controller-class)
+    - [Audio Transcriber Class and TranscribeButton Component](#audio-transcriber-class-and-transcribebutton-component)
   * [Usage Example of Libqmycroft in QML application](#usage-example-of-libqmycroft-in-qml-application)
+  * [Usage Example of Libqmycroft AudioTranscriber in QML application](#usage-example-of-libqmycroft-audiotranscriber-in-qml-application)
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -77,7 +79,9 @@ Libqmycroft allows QML based applications to register themselves as dynamic skil
 
 Libqmycroft provides developers with a declarative QML API for Skill Management and Skill Registration.
 
-#### SkillManager Class and Object
+
+
+### SkillManager Class and Object
 
 The SkillManager Object allows applications to manage and register a list of SkillEntry Objects, The SkillManager class also exposes functions and signals for creating the dynamic skill and listeners for intents and actions that have been invoked by voice interaction. The SkillManager class also exposes additional connection settings like setting the web socket address manually for connecting to a Mycroft-Core instance which can be used in cases of supporting remote instances or different than normal web socket address. 
 
@@ -91,7 +95,9 @@ Important functions of the SkillManager Object:
 - **createSkill() Method** *(required)*: Registers dynamic skill namespace and skill entries with Libqmycroft-Mock-Skills-Interface
 - **deleteSkill() Method** *(optional)*: Deletes the registered skill intents and namespace registration from Libqmycroft-Mock-Skills-Interface, it is automatically called in the SkillManager class deconstructor method when parent object is destroyed. *For example: when the application window in which the SkillManager object was registered is closed*  
 
-#### SkillEntry Class and Object
+
+
+### SkillEntry Class and Object
 
 The SkillEntry Object allows applications to create skill entries to be registered during the time of skill creation. SkillEntry Object manages entries for:
 
@@ -105,13 +111,23 @@ The SkillEntry Object allows applications to create skill entries to be register
 
   
 
-#### Controller Class
+### Controller Class
 
 The controller class is a minified abstraction of the original Mycroft Controller class from the [Mycroft GUI](https://github.com/MycroftAI/mycroft-gui) project, It is a singleton instance that manages web-socket connections and message exchange to the Mycroft message-bus. It additionally also exports signals for various known mycroft type messages that applications can choose to react towards, for example when mycroft is listening or speaking . 
 
 
 
-## Usage Example of Libqmycroft in QML application
+### Audio Transcriber Class and TranscribeButton Component
+
+The AudioTranscriber Object allows applications to implement audio transcribing for TextField, TextEntry type QML Objects. The AudioTranscriber Object is directly implemented in a ready to use TranscribeButton component provided by Libqmycroft.
+
+The TranscribeButton if placed directly in any text field will assume providing the audio transcribed result to the parent.text field, alternatively the TranscribeButton can also be used outside of a TextField component which requires settings its `"target"` property to any TextField component id that wants to implement Audio Transcribe.
+
+Note: The TranscribeButton component is uniquely always only capable of serving a single textfield, each text field in a form for example would require its own transcribe button.
+
+
+
+## Usage Example of Libqmycroft SkillManager & SkillEntry in QML application
 
 ***Example QML Implementation***
 
@@ -166,3 +182,27 @@ test application example one dynamic intent
 test application example one intent
 test first intent of dynamic application
 ```
+
+## Usage Example of Libqmycroft AudioTranscriber in QML application
+
+***Example QML Implementation***
+
+```QML
+...
+import Libqmycroft 1.0
+
+Window {
+	...
+    title: qsTr("Hello Mycroft!")
+
+    TextField {
+        id: someFormField
+        placeHolderText: "Enter Address"
+
+        TranscribeButton {
+            width: 100
+            height: 100
+            target: someFormField
+        }
+    }
+}

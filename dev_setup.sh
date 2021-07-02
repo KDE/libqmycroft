@@ -61,51 +61,51 @@ function found_exe() {
 neon() {
     echo "Starting Installation For KDE NEON"
     echo ""
-    echo "Following Packages Will Be Installed: git-core g++ cmake extra-cmake-modules gettext pkg-config pkg-kde-tools qtbase5-dev qtdeclarative5-dev libqt5websockets5-dev"
+    echo "Following Packages Will Be Installed: git-core g++ cmake extra-cmake-modules gettext pkg-config pkg-kde-tools qtbase5-dev qtdeclarative5-dev libqt5websockets5-dev qtmultimedia5-dev"
     echo ""
     echo "Please Enter Authentication For Installing System Dependencies"
-    sudo apt-get install -y git-core g++ cmake extra-cmake-modules gettext pkg-config pkg-kde-tools qtbase5-dev qtdeclarative5-dev libqt5websockets5-dev
+    sudo apt-get install -y git-core g++ cmake extra-cmake-modules gettext pkg-config pkg-kde-tools qtbase5-dev qtdeclarative5-dev libqt5websockets5-dev qtmultimedia5-dev
     build_lib
 }
 
 kubuntu() {
     echo "Starting Installation For K/Ubuntu 20.04 +"
     echo ""
-    echo "Following Packages Will Be Installed: git-core g++ cmake extra-cmake-modules gettext pkg-config pkg-kde-tools qtbase5-dev qtdeclarative5-dev libqt5websockets5-dev"
+    echo "Following Packages Will Be Installed: git-core g++ cmake extra-cmake-modules gettext pkg-config pkg-kde-tools qtbase5-dev qtdeclarative5-dev libqt5websockets5-dev qtmultimedia5-dev"
     echo ""
     echo "Please Enter Authentication For Installing System Dependencies"
-    sudo apt-get install -y git-core g++ cmake extra-cmake-modules gettext pkg-config pkg-kde-tools qtbase5-dev qtdeclarative5-dev libqt5websockets5-dev
+    sudo apt-get install -y git-core g++ cmake extra-cmake-modules gettext pkg-config pkg-kde-tools qtbase5-dev qtdeclarative5-dev libqt5websockets5-dev qtmultimedia5-dev
     build_lib
 }
 
 manjaro() {
     echo "Starting Installation For Manjaro / Arch"
     echo ""
-    echo "Following Packages Will Be Installed: cmake extra-cmake-modules qt5-websockets qt5-declarative qt5-quickcontrols2 qt5-base"
+    echo "Following Packages Will Be Installed: cmake extra-cmake-modules qt5-websockets qt5-declarative qt5-quickcontrols2 qt5-base qt5-multimedia"
     echo ""
     echo "Please Enter Authentication For Installing System Dependencies"
-    yes | sudo pacman -S git cmake extra-cmake-modules qt5-websockets qt5-declarative qt5-quickcontrols2 qt5-base
+    yes | sudo pacman -S git cmake extra-cmake-modules qt5-websockets qt5-declarative qt5-quickcontrols2 qt5-base qt5-multimedia
     build_lib   
 }
 
 alpine() {
     echo "Starting Installation For Alpine Linux"
     echo ""
-    echo "The development headers for the following packages will be installed: alpine-sdk cmake extra-cmake-modules qt5-qtwebsockets qt5-qtdeclarative qt5-qtquickcontrols2 qt5-qtbase"
+    echo "The development headers for the following packages will be installed: alpine-sdk cmake extra-cmake-modules qt5-qtwebsockets-dev qt5-qtdeclarative-dev qt5-qtquickcontrols2-dev qt5-qtbase-dev qt5-qtmultimedia-dev"
     echo "They can easily be uninstalled later on by running 'apk del makedeps-libqmycroft'"
     echo ""
     echo "Please Enter Authentication For Installing System Dependencies"
-    sudo apk add --virtual makedeps-libqmycroft alpine-sdk cmake extra-cmake-modules qt5-qtwebsockets-dev qt5-qtdeclarative-dev qt5-qtquickcontrols2-dev qt5-qtbase-dev
+    sudo apk add --virtual makedeps-libqmycroft alpine-sdk cmake extra-cmake-modules qt5-qtwebsockets-dev qt5-qtdeclarative-dev qt5-qtquickcontrols2-dev qt5-qtbase-dev qt5-qtmultimedia-dev
     build_lib
 }
 
 opensuse() {
     echo "Starting Installation For openSUSE Leap 15.x"
     echo ""
-    echo "The development headers for the following packages will be installed: cmake extra-cmake-modules libqt5-qtwebsockets libqt5-qtdeclarative libQt5QuickControls2 libqt5-qtbase"
+    echo "The development headers for the following packages will be installed: cmake extra-cmake-modules libqt5-qtwebsockets-devel libqt5-qtdeclarative-devel libQt5QuickControls2-devel libqt5-qtbase-devel libqt5-qtmultimedia-devel"
     echo ""
     echo "Please Enter Authentication For Installing System Dependencies"
-    sudo zypper --non-interactive install cmake extra-cmake-modules libqt5-qtwebsockets-devel libqt5-qtwebview-devel libqt5-qtdeclarative-devel libQt5QuickControls2-devel libqt5-qtbase-devel
+    sudo zypper --non-interactive install cmake extra-cmake-modules libqt5-qtwebsockets-devel libqt5-qtwebview-devel libqt5-qtdeclarative-devel libQt5QuickControls2-devel libqt5-qtbase-devel libqt5-qtmultimedia-devel
     build_lib
 }
 

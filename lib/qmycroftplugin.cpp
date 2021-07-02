@@ -18,6 +18,7 @@
 #include "qmycroftplugin.h"
 #include "controller.h"
 #include "skillmanager.h"
+#include "audiotranscribe.h"
 #include "skillentry.h"
 #include <QQmlContext>
 #include <QQmlEngine>
@@ -36,5 +37,6 @@ void QmycroftPlugin::registerTypes(const char *uri)
     qmlRegisterSingletonType<Controller>(uri, 1, 0, "Controller", controllerSingletonProvider);
     qmlRegisterType<SkillManager>(uri, 1, 0, "SkillManager");
     qmlRegisterType<SkillEntry>(uri, 1,0, "SkillEntry");
+    qmlRegisterType<AudioTranscribe>(uri, 1, 0, "AudioTranscribe");
+    qmlRegisterType(QUrl(QStringLiteral("qrc:/qml/TranscribeButton.qml")), uri, 1, 0, "TranscribeButton");
 }
-

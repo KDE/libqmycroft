@@ -1,9 +1,14 @@
 import re
 import json
 import time
+import os
+import subprocess
 from mycroft.skills.core import (MycroftSkill,
                                  intent_handler, intent_file_handler)
 from mycroft.messagebus.message import Message
+from mycroft.session import SessionManager
+from mycroft.stt import MycroftSTT
+from speech_recognition import WavFile, AudioData
 
 
 class Libqmycroft(MycroftSkill):
@@ -25,6 +30,9 @@ class Libqmycroft(MycroftSkill):
         self.add_event(
             "mycroft.dynamic.skill.speak",
             self.handle_dynamic_skill_speak)
+        self.add_event(
+            "libqmycroft.request.transcribe",
+            self.transcribe_audio)
 
     def handle_dynamic_entry(self, message):
         self.log.info("Got Dynamic Skill Registeration Request")
@@ -97,6 +105,23 @@ class Libqmycroft(MycroftSkill):
         for x in skill_parameters:
             name = self.skill_id + ":" + x['voc'].rsplit('/', 1)[-1]
             self.intent_service.detach_intent(name)
+
+    #Add transcribe support
+    def transcribe_audio(self, message):
+        self.log.info("Got Transcribe Request")
+        stt = MycroftSTT()
+        request_id = message.data["responseid"]
+        audio_file = message.data["file"]
+        audio_wav_file = "/tmp/transcribe_in.wav"
+        subprocess.call(["sox","-r","16000", "-t", "sw", "-e", "signed", "-c", "1", "-b", "16", audio_file, audio_wav_file])
+        audio = self.__get_audio_data(audio_wav_file)
+        text = stt.execute(audio, self.lang)
+        self.bus.emit(Message("libqmycroft.request.transcribe.result", {"targetResponseId": request_id, "targetResult": text}))
+
+    def __get_audio_data(self, audiofile):
+        wavfile = WavFile(audiofile)
+        with wavfile as source:
+            return AudioData(source.stream.read(), wavfile.SAMPLE_RATE, wavfile.SAMPLE_WIDTH)
 
     def __check_namespace_exist(self, namespace):
         list_namespaces = list(
